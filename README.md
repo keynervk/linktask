@@ -1,8 +1,8 @@
-# LinkTask
+# LinkTask 📋
 
 Gestor de proyectos personal con tablero Kanban, construido con React, Node.js y MySQL. Incluye un asistente de IA integrado (LLaMA 3 vía Groq) para ayudar con la gestión de tareas.
 
-## Tecnologías
+## 🚀 Tecnologías
 
 - **Frontend:** React + Vite + TypeScript + Tailwind CSS
 - **Backend:** Node.js + Express
@@ -11,7 +11,7 @@ Gestor de proyectos personal con tablero Kanban, construido con React, Node.js y
 - **IA:** Groq SDK (LLaMA 3.3 70B)
 - **Containerización:** Docker + Docker Compose
 
-## Funcionalidades
+## ✨ Funcionalidades
 
 - Registro e inicio de sesión con JWT
 - Crear, ver y eliminar proyectos
@@ -20,7 +20,7 @@ Gestor de proyectos personal con tablero Kanban, construido con React, Node.js y
 - Asistente de IA integrado para consultas sobre el proyecto
 - Interfaz moderna con glassmorphism
 
-## 🐳 Instalación con Docker
+## 🐳 Instalación con Docker (recomendado)
 
 La forma más rápida de levantar todo el proyecto (backend + frontend + MySQL) con un solo comando.
 
@@ -147,7 +147,7 @@ linktask/
 └── docker-compose.yml
 ```
 
-## Próximamente
+## 🔮 Próximamente
 
 - Exportar reportes en PDF
 - Estadísticas de productividad
