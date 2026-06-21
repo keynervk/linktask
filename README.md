@@ -1,15 +1,15 @@
-# LinkTask 📋
+# LinkTask 
 
 Gestor de proyectos personal con tablero Kanban, construido con React, Node.js y MySQL.
 
-## 🚀 Tecnologías
+ Tecnologías
 
 - **Frontend:** React + Vite + TypeScript + Tailwind CSS
 - **Backend:** Node.js + Express
 - **Base de datos:** MySQL
 - **Autenticación:** JWT + bcryptjs
 
-## ✨ Funcionalidades
+# Funcionalidades
 
 - Registro e inicio de sesión con JWT
 - Crear, ver y eliminar proyectos
@@ -17,7 +17,7 @@ Gestor de proyectos personal con tablero Kanban, construido con React, Node.js y
 - Crear, mover y eliminar tareas
 - Interfaz moderna con glassmorphism
 
-## 🛠️ Instalación
+## Instalación
 
 ### Backend
 
@@ -89,8 +89,6 @@ linktask/
         └── services/
 ```
 
-## 🔮 Próximamente
-
-- Integración con IA para sugerencias de tareas
+# Próximamente
 - Exportar reportes en PDF
 - Estadísticas de productividad
