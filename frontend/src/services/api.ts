@@ -10,4 +10,17 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Sesion vencida o token invalido: se limpia y se vuelve al login.
+// El login fallido tambien responde 401, por eso se excluye.
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401 && !error.config?.url?.includes('/auth/login')) {
+      localStorage.clear();
+      window.location.href = '/';
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default api;

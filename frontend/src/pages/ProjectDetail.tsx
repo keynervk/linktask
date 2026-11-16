@@ -106,7 +106,7 @@ export default function ProjectDetail() {
         <KanbanBoard tasks={tasks} onStatusChange={updateStatus} onDelete={deleteTask} />
 
         {/* IA */}
-        <AIChat projectName={id || ''} tasks={tasks} />
+        <AIChat projectId={id || ''} />
       </div>
     </div>
   );
