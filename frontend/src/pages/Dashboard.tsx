@@ -33,6 +33,7 @@ export default function Dashboard() {
   };
 
   const deleteProject = async (id: number) => {
+    if (!confirm('¿Eliminar este proyecto y todas sus tareas?')) return;
     await api.delete(`/projects/${id}`);
     fetchProjects();
   };
