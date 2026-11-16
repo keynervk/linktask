@@ -7,11 +7,10 @@ interface Message {
 }
 
 interface Props {
-  projectName: string;
-  tasks: { title: string; status: string }[];
+  projectId: string;
 }
 
-export default function AIChat({ projectName, tasks }: Props) {
+export default function AIChat({ projectId }: Props) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -25,25 +24,19 @@ export default function AIChat({ projectName, tasks }: Props) {
     setInput('');
     setLoading(true);
 
-    const tasksSummary = tasks.map(t => `- ${t.title} (${t.status})`).join('\n');
-
     try {
-      const response = await api.post('/tasks/ai', {
-        messages: newMessages,
-        systemPrompt: `Eres un asistente de gestión de proyectos integrado en LinkTask.
-Estás ayudando con el proyecto "${projectName}".
-Las tareas actuales son:
-${tasksSummary || 'No hay tareas aún.'}
-Responde siempre en español, de forma concisa y útil.`,
-      });
+      // El servidor arma el contexto (nombre del proyecto y tareas) a partir del projectId
+      // Solo los ultimos 20 mensajes: el servidor no acepta mas
+      const response = await api.post('/tasks/ai', { projectId, messages: newMessages.slice(-20) });
 
       const assistantMessage: Message = {
         role: 'assistant',
         content: response.data.content[0].text,
       };
       setMessages([...newMessages, assistantMessage]);
-    } catch (err) {
-      setMessages([...newMessages, { role: 'assistant', content: 'Error al conectar con la IA. Intenta de nuevo.' }]);
+    } catch (err: any) {
+      const detalle = err.response?.data?.message || 'Error al conectar con la IA. Intenta de nuevo.';
+      setMessages([...newMessages, { role: 'assistant', content: detalle }]);
     } finally {
       setLoading(false);
     }
