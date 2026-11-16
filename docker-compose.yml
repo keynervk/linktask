@@ -2,12 +2,20 @@ services:
   mysql:
     image: mysql:8
     environment:
-      MYSQL_ROOT_PASSWORD: MyNewPass1
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: linktask
     ports:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      # Crea las tablas la primera vez que se levanta el contenedor
+      - ./backend/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    healthcheck:
+      # Por TCP: durante la inicializacion MySQL responde por socket pero aun no acepta conexiones de red
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 --protocol=tcp -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   backend:
     build: ./backend
@@ -19,7 +27,8 @@ services:
       PORT: 3000
       DB_HOST: mysql
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
 
   frontend:
     build: ./frontend

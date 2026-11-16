@@ -51,7 +51,10 @@ La forma más rápida de levantar todo el proyecto (backend + frontend + MySQL) 
 
    > Puedes generar una API key gratuita de Groq en [console.groq.com](https://console.groq.com)
 
-3. Levanta todo el proyecto:
+   > Con Docker, `DB_PASSWORD` también es la contraseña de `root` del contenedor de MySQL, y `DB_HOST` se
+   > reemplaza automáticamente por `mysql`.
+
+3. Levanta todo el proyecto (la primera vez se crean solas las tablas de `backend/schema.sql`):
 
    ```bash
    docker compose up --build
@@ -62,14 +65,10 @@ La forma más rápida de levantar todo el proyecto (backend + frontend + MySQL) 
    - Backend API: [http://localhost:3000](http://localhost:3000)
    - MySQL (opcional, para conectar con un cliente externo): `localhost:3307`
 
-5. La primera vez, crea las tablas en la base de datos del contenedor:
+5. Regístrate desde la pantalla de login y ¡listo!
 
-   ```bash
-   docker cp backend/schema.sql linktask-mysql-1:/schema.sql
-   docker exec -it linktask-mysql-1 mysql -u root -p<tu_contraseña> linktask -e "source /schema.sql"
-   ```
-
-6. Regístrate desde la pantalla de login y ¡listo!
+   > Si ya tenías el volumen `mysql_data` de una versión anterior, las tablas no se vuelven a crear. Para
+   > empezar de cero: `docker compose down -v`.
 
 ##  Instalación manual (sin Docker)
 
@@ -151,4 +150,3 @@ linktask/
 
 - Exportar reportes en PDF
 - Estadísticas de productividad
-- Healthcheck en docker-compose para evitar errores de arranque entre servicios
